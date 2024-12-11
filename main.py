@@ -171,6 +171,7 @@ kitchen.west = bathroom
 
 bathroom.north = bedroom
 bathroom.east = kitchen
+# bathroom.south = dining is this correct?
 
 bedroom.east = closet
 bedroom.south = bathroom
