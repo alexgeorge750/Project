@@ -81,7 +81,7 @@ chest.key_item = 'key2'
 mailbox = LockedObject()
 mailbox.item = 'mailbox'
 mailbox.locked = False
-mailbox.inside_object = ["a note with writing '1234'", ' a dog bone']
+mailbox.inside_object = [" note with writing '1234'", ' a dog bone']
 dresser = LockedObject()
 dresser.item = 'dresser'
 dresser.locked = False
@@ -143,7 +143,7 @@ basementCloset.enemy = None
 pianoRoom = Location('A small room with a large piano.', (3,2), ['piano'],
 '','')
 pianoRoom.enemy = None
-escapeRoom = Location('A mysterious room with a single locked door.', 
+escapeRoom = Location("A mysterious room with a single door.",
 (1,2), [], '','bookshelf door')
 escapeRoom.enemy = None
 escapeRoom.locked = True
@@ -203,7 +203,7 @@ escapeRoom.south = library
 all_locations = [street,driveway,foyer, livingRoom, diningRoom, theatre, bedroom, bathroom, closet, artRoom,
 basementStart,escapeRoom, pianoRoom, basementBedroom, basementCloset, library]
 
-all_locked_objects = [trapdoor, chest, dresser]
+all_locked_objects = [trapdoor, chest, dresser, mailbox]
 @dataclass
 class Player:
     coordinates: tuple
@@ -337,26 +337,30 @@ def run_game():
         response = input('>>')
         if response == 'quit':
             break
-        if response == "go north":
-            direction = response.split('go', 1)[1].strip()
-            next_location = current_location.__getattribute__(direction)
-            go_north(next_location)
-        if response == "go south":
+        elif response == "go north":
+            if current_location == library:
+                if escapeRoom.locked:
+                    print("It seems you can't go north from here...")
+            else:
+                direction = response.split('go', 1)[1].strip()
+                next_location = current_location.__getattribute__(direction)
+                go_north(next_location)
+        elif response == "go south":
             direction = response.split('go', 1)[1].strip()
             next_location = current_location.__getattribute__(direction)
             go_south(next_location)
-        if response == "go east":
+        elif response == "go east":
             direction = response.split('go', 1)[1].strip()
             next_location = current_location.__getattribute__(direction)
             go_east(next_location)
-        if response == "go west":
+        elif response == "go west":
             direction = response.split('go', 1)[1].strip()
             next_location = current_location.__getattribute__(direction)
             go_west(next_location)
-        if response.startswith('take '):
+        elif response.startswith('take '):
             item = response.split('take' , 1)[1].strip()
             current_player.pickup_item(item)
-        if response.startswith('use '):
+        elif response.startswith('use '):
             for location in all_locations:
                 if location.key_item == response.split('use' , 1)[1].strip():
                     location.locked = False
@@ -378,7 +382,7 @@ def run_game():
                                 print('You defeated the enemy!')
                         else:
                             print('Wrong weapon!')
-        if response.startswith('open '):
+        elif response.startswith('open '):
             for object in all_locked_objects:
                 if response.split('open ', 1)[1].strip() == object.item:
                     if object.locked == True:
@@ -391,11 +395,18 @@ def run_game():
                         else:
                             print("Opening the " + str(object.item) + ' reveals a ' + object.inside_object[0] + ' and '
                                   + object.inside_object[1])
-        if response.startswith('move' ):
+        elif response.startswith('move' ):
             if response.split('move' , 1)[1].strip() == 'rug':
                 print('Moving the rug reveals a trapdoor underneath')
-        if response == 'use projector':
-            print('turning on the projector reveals an image of a bookshelf')
+            if response.split('move', 1)[1].strip() == 'book':
+                escapeRoom.locked = False
+                print("Moving the book causes the bookshelf to open revealing a room behind! Type 'go north' to continue. ")
+        elif response == 'use projector':
+            print('Turning on the projector reveals an image of a bookshelf')
+        elif current_location == escapeRoom and response == 'open door':
+            print('You are now back outside! You have escaped! Thanks for playing!')
+        else:
+            print("Command not recognized")
 
 
 
