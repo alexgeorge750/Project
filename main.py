@@ -398,6 +398,35 @@ def run_game():
         if response == 'use projector':
             print('turning on the projector reveals an image of a bookshelf')
 
+# Creating a function that implements game saving and loading
+import json
+
+
+game_state = {
+    "player_name": "",
+    "location": current_location,
+}
+
+
+def saving_progress(state, filename = "saveprogress.json"):
+    save_file = open(filename, "w")
+    json.dump(state, save_file)
+    save_file.close()
+    print("Game progress was saved")
+
+
+def load_game(filename="saveprogress.json"):
+    save_file = open(filename, "r")
+    state = json.load(save_file)
+    save_file.close()
+    print("Game loaded!")
+    return state
+
+
+saving_progress(game_state)
+
+loaded_state = load_game()
+print(loaded_state)
 
 
 
