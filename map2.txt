@@ -1,3 +1,16 @@
-120
+Map 2: First Floor of House
+
+3x3
+110
 111
 111
+
+7x7 # has paths between the rooms that connect, would have to change the coordinates
+0000000
+0112000 #2 to represent the place to go from map to map?
+0100000
+0111110
+0101010
+0111110
+0002000 # next to outside
+
