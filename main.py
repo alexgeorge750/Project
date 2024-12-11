@@ -37,6 +37,9 @@ class Enemy:
     def attack(self):
         current_player.health -= 1
         print('The enemy attacked! You now have ' + str(current_player.health) + ' health points.' )
+        if current_player.health == 0:
+            print("Game over.")
+
 
 
 dog = Enemy('dog', 3,)
@@ -322,6 +325,8 @@ def go_west(next_location):
         if current_enemy:
             print(current_enemy.description)
             current_enemy.attack()
+            if current_player.health == 0:
+                print("Game over.")
     else:
         print("You can't go west from here.")
 
@@ -405,7 +410,7 @@ def run_game():
 # Creating a function that implements game saving and loading
 import json
 
-
+"""
 game_state = {
     "player_name": "",
     "location": current_location,
@@ -432,7 +437,7 @@ saving_progress(game_state)
 loaded_state = load_game()
 print(loaded_state)
 
-
+"""
 
 
 print('''Welcome to the haunted mansion text based adventure game! In this  
