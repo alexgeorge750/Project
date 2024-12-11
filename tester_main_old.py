@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 class Location:
-    def __init__(self, description:str, coordinates:tuple, usables: list, locked_description: str, key_item: str):
+    def __init__(self, description: str, coordinates: tuple, usables: list, locked_description: str, key_item: str):
         self.description = description
         self.coordinates = coordinates
         self.north = None
@@ -14,7 +14,6 @@ class Location:
         self.locked_description = locked_description
         self.key_item = key_item
         self.enemy = Enemy
-
 
     def addPickup(self, obj):
         self.pickups.append(obj)
@@ -36,10 +35,10 @@ class Enemy:
 
     def attack(self):
         current_player.health -= 1
-        print('The enemy attacked! You now have ' + str(current_player.health) + ' health points.' )
+        print('The enemy attacked! You now have ' + str(current_player.health) + ' health points.')
 
 
-dog = Enemy('dog', 3,)
+dog = Enemy('dog', 3, )
 dog.description = 'You encounter a dog!'
 dog.defeater = 'dog bone'
 mummy = Enemy('mummy', 3)
@@ -49,9 +48,10 @@ ghost = Enemy('final boss', 5)
 ghost.description = 'You encounter a ghost!'
 ghost.defeater = 'ray gun'
 
-
 current_enemy = None
 weapon_list = ['dog bone', 'knife', 'ray gun']
+
+
 @dataclass
 class LockedObject():
     item = str
@@ -60,7 +60,6 @@ class LockedObject():
     key_item = str
     inside_object = []
     open_description = str
-
 
     def unlock(self, item):
         self.locked = False
@@ -81,73 +80,72 @@ chest.key_item = 'key2'
 mailbox = LockedObject()
 mailbox.item = 'mailbox'
 mailbox.locked = False
-mailbox.inside_object = ["a note with writing '1234'", ' a dog bone']
+mailbox.inside_object = [" note with writing '1234'", ' a dog bone']
 dresser = LockedObject()
 dresser.item = 'dresser'
 dresser.locked = False
 dresser.inside_object = ['key2']
 foyer = Location('''An open foyer with a large dimly lit chandelier hanging from 
-the ceiling.''', (2,1), [], '', '')
+the ceiling.''', (2, 1), [], '', '')
 foyer.enemy = None
 livingRoom = Location('''A dark, dusty living room with a couch that has a key 
-on it.''', (3,1), [], '','')
+on it.''', (3, 1), [], '', '')
 livingRoom.addPickup('key')
 livingRoom.enemy = None
 diningRoom = Location('''A large dining room containing a long table with a 
-picture frame in the middle.''', (1,1), [], '','')
+picture frame in the middle.''', (1, 1), [], '', '')
 diningRoom.addPickup('picture frame')
 diningRoom.enemy = None
-driveway = Location('A long driveway leading to the mansion.',(2,3),[],
-'The gate is locked preventing you from entering. Enter code to open.','1234')
+driveway = Location('A long driveway leading to the mansion.', (2, 3), [],
+                    'The gate is locked preventing you from entering. Enter code to open.', '1234')
 driveway.locked = True
 driveway.enemy = dog
-street = Location('Under a streetlamp facing a large metal gate. You see a mailbox.',(2,1),
-['gate','mailbox'],'','')
+street = Location('Under a streetlamp facing a large metal gate. You see a mailbox.', (2, 1),
+                  ['gate', 'mailbox'], '', '')
 street.addPickup('note')
 street.addPickup('dog bone')
 street.enemy = None
 kitchen = Location('''An oddly put together kitchen with an open drawer 
-revealing a knife inside.''',(2,2), [], '','')
+revealing a knife inside.''', (2, 2), [], '', '')
 kitchen.addPickup('knife')
 kitchen.enemy = None
 bathroom = Location('''A small bathroom with blood splattered on the 
-mirror.''',(1,2),[], '','')
+mirror.''', (1, 2), [], '', '')
 bathroom.enemy = None
-bedroom = Location('''A dark bedroom with an old bed and a bedside table.''', (1,3),
-['bedside table'], '','')
+bedroom = Location('''A dark bedroom with an old bed and a bedside table.''', (1, 3),
+                   ['bedside table'], '', '')
 bedroom.enemy = None
 closet = Location('''A small closet with a strange rug on the floor.''',
-(2,3),['rug', 'trapdoor'], '','')
+                  (2, 3), ['rug', 'trapdoor'], '', '')
 closet.enemy = None
 theatre = Location('''A small movie theatre with an old projector that seems to 
-be working.''', (3,2), ['projector'], '','')
+be working.''', (3, 2), ['projector'], '', '')
 theatre.enemy = mummy
 basementStart = Location('''A large, open basement with many doors to other 
-rooms.''', (2,2), [], '', '')
+rooms.''', (2, 2), [], '', '')
 basementStart.enemy = None
 artRoom = Location('''A small room with many old portraits on the 
 walls.''',
-(2,3), [], '','')
+                   (2, 3), [], '', '')
 artRoom.enemy = None
 library = Location('''A large library with one book that seems to be out of 
-place on the shelf.''', (1,1), ['book'], '','')
+place on the shelf.''', (1, 1), ['book'], '', '')
 library.enemy = ghost
 basementBedroom = Location('''A small bedroom with a large chest at the foot of 
-the bed.''', (2,1), ['chest'], '','')
+the bed.''', (2, 1), ['chest'], '', '')
 basementBedroom.addPickup('ray gun')
 basementBedroom.enemy = None
-basementCloset = Location('A tiny closet with a dresser.',(3,1), ['dresser'],
-'','')
+basementCloset = Location('A tiny closet with a dresser.', (3, 1), ['dresser'],
+                          '', '')
 basementCloset.addPickup('key2')
 basementCloset.enemy = None
-pianoRoom = Location('A small room with a large piano.', (3,2), ['piano'],
-'','')
+pianoRoom = Location('A small room with a large piano.', (3, 2), ['piano'],
+                     '', '')
 pianoRoom.enemy = None
-escapeRoom = Location('A mysterious room with a single locked door.',
-(1,2), [], '','bookshelf door')
+escapeRoom = Location("A mysterious room with a single door.",
+                      (1, 2), [], '', 'bookshelf door')
 escapeRoom.enemy = None
 escapeRoom.locked = True
-
 
 foyer.north = kitchen
 foyer.east = livingRoom
@@ -171,7 +169,6 @@ kitchen.west = bathroom
 
 bathroom.north = bedroom
 bathroom.east = kitchen
-# bathroom.south = dining is this correct?
 
 bedroom.east = closet
 bedroom.south = bathroom
@@ -201,10 +198,12 @@ pianoRoom.west = basementStart
 
 escapeRoom.south = library
 
-all_locations = [street,driveway,foyer, livingRoom, diningRoom, theatre, bedroom, bathroom, closet, artRoom,
-basementStart,escapeRoom, pianoRoom, basementBedroom, basementCloset, library]
+all_locations = [street, driveway, foyer, livingRoom, diningRoom, theatre, bedroom, bathroom, closet, artRoom,
+                 basementStart, escapeRoom, pianoRoom, basementBedroom, basementCloset, library]
 
-all_locked_objects = [trapdoor, chest, dresser]
+all_locked_objects = [trapdoor, chest, dresser, mailbox]
+
+
 @dataclass
 class Player:
     coordinates: tuple
@@ -212,9 +211,8 @@ class Player:
     health: int
     items: list[str]
 
-
     def pickup_item(self, item: str):
-        if item in  current_location.pickups:
+        if item in current_location.pickups:
             self.items.append(item)
             print(item + ' picked up')
         else:
@@ -238,8 +236,8 @@ def go_north(next_location):
             current_enemy.attack()
             return
     if next_location.locked == True:
-       print(next_location.locked_description)
-       return
+        print(next_location.locked_description)
+        return
     if current_location.north:
         current_player.coordinates = (current_player.coordinates[0], current_player.coordinates[1] + 1)
         current_location = current_location.north
@@ -251,6 +249,7 @@ def go_north(next_location):
     else:
         print("You can't go north from here.")
 
+
 def go_south(next_location):
     global current_location, current_enemy
     if next_location is None:
@@ -261,11 +260,11 @@ def go_south(next_location):
             current_enemy.attack()
             return
     if next_location.locked == True:
-       print(next_location.locked_description)
-       return
+        print(next_location.locked_description)
+        return
     if current_location.south:
         if next_location is basementStart:
-            current_player.coordinates = (2,2)
+            current_player.coordinates = (2, 2)
             current_location = current_location.south
             print("Your current location is now: " + current_location.description)
         else:
@@ -279,6 +278,7 @@ def go_south(next_location):
     else:
         print("You can't go south from here.")
 
+
 def go_east(next_location):
     global current_location, current_enemy
     if next_location is None:
@@ -289,8 +289,8 @@ def go_east(next_location):
             current_enemy.attack()
             return
     if next_location.locked == True:
-       print(next_location.locked_description)
-       return
+        print(next_location.locked_description)
+        return
     elif current_location.east:
         current_player.coordinates = (current_player.coordinates[0] + 1, current_player.coordinates[1])
         current_location = current_location.east
@@ -302,6 +302,7 @@ def go_east(next_location):
     else:
         print("You can't go east from here.")
 
+
 def go_west(next_location):
     global current_location, current_enemy
     if next_location is None:
@@ -312,8 +313,8 @@ def go_west(next_location):
             current_enemy.attack()
             return
     if next_location.locked == True:
-       print(next_location.locked_description)
-       return
+        print(next_location.locked_description)
+        return
     if current_location.west:
         current_player.coordinates = (current_player.coordinates[0] - 1, current_player.coordinates[1])
         current_location = current_location.west
@@ -326,9 +327,8 @@ def go_west(next_location):
         print("You can't go west from here.")
 
 
-
 def getCurrentLocation():
-        return current_player.coordinates
+    return current_player.coordinates
 
 
 def run_game():
@@ -339,9 +339,13 @@ def run_game():
         if response == 'quit':
             break
         elif response == "go north":
-            direction = response.split('go', 1)[1].strip()
-            next_location = current_location.__getattribute__(direction)
-            go_north(next_location)
+            if current_location == library:
+                if escapeRoom.locked:
+                    print("It seems you can't go north from here...")
+            else:
+                direction = response.split('go', 1)[1].strip()
+                next_location = current_location.__getattribute__(direction)
+                go_north(next_location)
         elif response == "go south":
             direction = response.split('go', 1)[1].strip()
             next_location = current_location.__getattribute__(direction)
@@ -355,19 +359,19 @@ def run_game():
             next_location = current_location.__getattribute__(direction)
             go_west(next_location)
         elif response.startswith('take '):
-            item = response.split('take' , 1)[1].strip()
+            item = response.split('take', 1)[1].strip()
             current_player.pickup_item(item)
         elif response.startswith('use '):
             for location in all_locations:
-                if location.key_item == response.split('use' , 1)[1].strip():
+                if location.key_item == response.split('use', 1)[1].strip():
                     location.locked = False
                     print("Successful unlock.")
             for object in all_locked_objects:
-                if object.key_item == response.split('use' , 1)[1].strip():
+                if object.key_item == response.split('use', 1)[1].strip():
                     object.locked = False
                     print("Successful unlock.")
             if current_enemy:
-                if response.split('use' , 1)[1].strip() in weapon_list:
+                if response.split('use', 1)[1].strip() in weapon_list:
                     if current_enemy == dog:
                         print('The dog chased the dog bone. You are safe!')
                         current_enemy = None
@@ -392,47 +396,19 @@ def run_game():
                         else:
                             print("Opening the " + str(object.item) + ' reveals a ' + object.inside_object[0] + ' and '
                                   + object.inside_object[1])
-        elif response.startswith('move' ):
-            if response.split('move' , 1)[1].strip() == 'rug':
+        elif response.startswith('move'):
+            if response.split('move', 1)[1].strip() == 'rug':
                 print('Moving the rug reveals a trapdoor underneath')
+            if response.split('move', 1)[1].strip() == 'book':
+                escapeRoom.locked = False
+                print(
+                    "Moving the book causes the bookshelf to open revealing a room behind! Type 'go north' to continue. ")
         elif response == 'use projector':
-            print('turning on the projector reveals an image of a bookshelf')
+            print('Turning on the projector reveals an image of a bookshelf')
         elif current_location == escapeRoom and response == 'open door':
             print('You are now back outside! You have escaped! Thanks for playing!')
         else:
             print("Command not recognized")
-
-# Creating a function that implements game saving and loading
-import json
-
-
-game_state = {
-    "player_name": "",
-    "location": current_location,
-}
-
-
-def saving_progress(state, filename = "saveprogress.json"):
-    save_file = open(filename, "w")
-    json.dump(state, save_file)
-    save_file.close()
-    print("Game progress was saved")
-
-
-def load_game(filename="saveprogress.json"):
-    save_file = open(filename, "r")
-    state = json.load(save_file)
-    save_file.close()
-    print("Game loaded!")
-    return state
-
-
-saving_progress(game_state)
-
-loaded_state = load_game()
-print(loaded_state)
-
-
 
 
 print('''Welcome to the haunted mansion text based adventure game! In this  
@@ -441,10 +417,10 @@ to go explore. Can you make it out alive? Type your character's name below
 to start!''')
 
 player_name = input('>>')
-current_player = Player((2,1),player_name,5,[])
+current_player = Player((2, 1), player_name, 5, [])
 
 print("Your current location is: " + current_location.description)
 
 run_game()
 
-#changes in
+
