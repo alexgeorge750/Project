@@ -408,7 +408,7 @@ def run_game():
         elif response == 'quit':
             break
         elif response == "go north":
-            if current_location == library and current_location.locked == True:
+            if current_location == library and escapeRoom.locked == True:
                 print("It seems you can't go north from here...")
             else:
                 direction = response.split('go', 1)[1].strip()
