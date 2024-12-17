@@ -1,3 +1,10 @@
+Map 1: Outside of house
+
+2x1
+1
+1
+
+3x3
 010
 010
-020
+000
